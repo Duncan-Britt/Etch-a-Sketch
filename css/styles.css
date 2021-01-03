@@ -1,0 +1,28 @@
+body {
+
+}
+
+#grid-container {
+  border: 10px solid #a99a33;
+  width: 440px;
+  height: 440px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.pixel {
+  width: 55px;
+  height: 55px;
+  border: 1px solid #e0e0e0;
+  padding: 0 0;
+  margin: 0 0;
+  box-sizing: border-box;
+}
+
+#showColor {
+  width: 25px;
+  height:25px;
+  box-sizing: border-box;
+}
