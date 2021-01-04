@@ -6,19 +6,41 @@ let pixelNumber = 625;
 
 // color picker
 let startColor = document.querySelector('#colorPicker');
+let startSat = document.querySelector('#sat')
+let startBright = document.querySelector('#brightness');
 let hue = 0;
+let sat = 100;
+let brightness = 50;
 let displayColor = document.querySelector('#showColor');
 
-displayColor.style.backgroundColor = `hsl(${hue}, 100%, ${50}%)`;
+displayColor.style.backgroundColor = `hsl(${hue}, ${sat}%, ${brightness}%)`;
 
 // set hue according to input
 function setHue() {
   hue = this.value;
-  displayColor.style.backgroundColor = `hsl(${hue}, 100%, ${50}%)`;
+  displayColor.style.backgroundColor = `hsl(${hue}, ${sat}%, ${brightness}%)`;
 }
 
 startColor.addEventListener('change', setHue);
 startColor.addEventListener('mousemove', setHue);
+
+// set saturation according to input
+function setSat() {
+  sat = this.value;
+  displayColor.style.backgroundColor = `hsl(${hue}, ${sat}%, ${brightness}%)`;
+}
+
+startSat.addEventListener('change', setSat);
+startSat.addEventListener('mousemove', setSat);
+
+// set brightness according to input
+function setBright() {
+  brightness = this.value;
+  displayColor.style.backgroundColor = `hsl(${hue}, ${sat}%, ${brightness}%)`;
+}
+
+startBright.addEventListener('change', setBright);
+startBright.addEventListener('mousemove', setBright);
 
 
 //function (loop) to create boxes
@@ -43,7 +65,7 @@ function drawBox() {
 // pixel length is container length / sqr root of pixel pixelNumber
 // function to determine pixel-box length and apply it to pixel class
 function makeLength() {
-  const LENGTH = 440 / Math.sqrt(pixelNumber);
+  const LENGTH = 530 / Math.sqrt(pixelNumber);
 
   let pixels = document.getElementsByClassName('pixel');
   for (let i = 0; i < pixels.length; i++) {
@@ -83,22 +105,86 @@ pixelInput.addEventListener('change', colorReset);
 
 let isDrawing = false; // won't draw by default
 
-//rainbow
-let rainbow = true;
+//color options
+let rainbow = false;
+let gradient = false;
+let eraser = false;
+let wasRainbow = false; //to store for rainbow value when toggling eraser
+let wasGradient = false; // to store gradient value when toggling eraser
+
+const BUTTON = document.querySelectorAll('button'); //node list
+const BUTTONS = Array.from(BUTTON); // make array
+BUTTON.forEach(button => button.addEventListener('click', togFunc));
+
+function togFunc(e) {
+  if (this.name === 'rainbow') {
+    rainbow = !rainbow;
+    if (rainbow) {
+      eraser = false;
+      let a = document.querySelector('.eraser'); //style eraser button
+      if (a.classList.contains('pressed')) {
+        a.classList.remove('pressed');
+      }
+      this.classList.add('pressed');
+    } else {
+      this.classList.remove('pressed');
+    }
+  }
+  if (this.name === 'gradient') {
+    gradient = !gradient;
+    if (gradient) {
+      brightness = 100;
+      eraser = false;
+      let b = document.querySelector('.eraser'); //style eraser button
+      if (b.classList.contains('pressed')) {
+        b.classList.remove('pressed');
+      }
+      this.classList.add('pressed');
+    } else {
+      this.classList.remove('pressed');
+    }
+  }
+  if (this.name === 'eraser') { // tricky business
+    eraser = !eraser;
+    if (eraser) {
+      wasGradient = gradient;
+      wasRainbow = rainbow;
+      gradient = false;
+      rainbow = false;
+      this.classList.add('pressed');
+    } else {
+      gradient = wasGradient;
+      rainbow = wasRainbow;
+      this.classList.remove('pressed');
+    }
+  }
+}
 
 function readyPixels() {
   let pixels = document.getElementsByClassName('pixel');
   let pix = Array.from(pixels);
-  let light = 50;
 
 
   const draw = function(e) {
     if(!isDrawing) return; // won't draw
-    e.target.style.backgroundColor=`hsl(${hue}, 100%, ${light}%)`;
-    //e.target.globalCompositeOperation = 'lighter'; figure out how to do some things
-    if (rainbow) {
-      hue++;
+    if (!eraser) {
+      e.target.style.backgroundColor=`hsl(${hue}, ${sat}%, ${brightness}%)`;
+      displayColor.style.backgroundColor = `hsl(${hue}, ${sat}%, ${brightness}%)`;
+      //e.target.globalCompositeOperation = 'lighter'; figure out how to do some things
+      if (rainbow) {
+        hue++;
+      }
+      if (gradient) { // not finished!
+        if (brightness >= 50){
+          brightness--;
+        } else {
+          brightness = 90;
+        }
+      }
+    } else {
+      e.target.style.backgroundColor = '#fff';
     }
+
   }
 
   pix.forEach(pixel => pixel.style.backgroundColor='#fff');
@@ -112,8 +198,8 @@ function readyPixels() {
   window.addEventListener('mouseup', () => isDrawing = false);
 }
 
+const clear = document.querySelector('#clear');
+clear.addEventListener('click', readyPixels);
 
-// plan: make buttons for options for colors, rainbow, erasing, (dark mode?), etc???
-// colors options: color picker, rainbow, eraser. allow for manipulation of rainbow saturation and darkness;
-// create color gradient option.
-// also make color on click event;
+
+// plan: make clear option, leave alone when change pixels

@@ -8,21 +8,50 @@
     <script defer src="main.js"></script>
   </head>
   <body>
-    <div class="head">
-      <h1>Etch-A-Sketch</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad m</p>
-      <ul>
-        <li><button type="button" name="button">Color</button></li>
-        <label for="color-picker">Color</label>
-        <input id="colorPicker" type="range" name="color-picker" min="0" max="360" value="0">
-        <div id='showColor'></div>
-        <li><button type="button" name="button">Rainbow</button></li>
-        <li><button type="button" name="button">Gradient</button></li>
-        <li><button type="button" name="button">Eraser</button></li>
-      </ul>
+    <div class="container">
+      <div class="head">
+        <h1>Etcha McSketcha</h1>
+        <p>Click on the grid to draw</p>
+      </div>
+
+      <section class="etch">
+
+        <div class="controls">
+          <div class="color">
+            <ul class = sliders>
+              <li class="slider">
+                <label for="color-picker">Color:</label>
+                <input id="colorPicker" type="range" name="color-picker" min="0" max="360" value="0">
+              </li>
+              <li class="slider">
+                <label for="saturation">Saturation:</label>
+                <input id="sat" type="range" name="saturation" min="0" max="100" value="100">
+              </li>
+              <li class="slider">
+                <label for="brightness">Brightness:</label>
+                <input id="brightness" type="range" name="brightness" min="0" max="100" value="50">
+              </li>
+            </ul>
+            <div id='showColor'></div>
+          </div>
+          <div class="buttons">
+            <button type="button" name="rainbow">Rainbow</button>
+            <button type="button" name="gradient">Gradient</button>
+            <button class="eraser" type="button" name="eraser">Eraser</button>
+          </div>
+          <div class="boxes">
+            <div class="pixl">
+              <label for="pixels">Pixels:</label>
+              <input id="pixNum" type="range" name="pixels" min="1" max="1936" value="625" data-sizing="px">
+            </div>
+            <button id="clear" type="button" name="clear">CLEAR</button>
+          </div>
+
+        </div>
+
+        <div id="grid-container"></div>
+
+      </section>
     </div>
-    <div id="grid-container"></div>
-    <label for="pixels">Pixels:</label>
-    <input id="pixNum" type="range" name="pixels" min="1" max="1936" value="625" data-sizing="px">
   </body>
 </html>
