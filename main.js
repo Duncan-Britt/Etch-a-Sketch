@@ -208,14 +208,14 @@ function readyPixels() {
 
   window.addEventListener('mousedown', () => isDrawing = true);
   window.addEventListener('touchstart', (e) => {
-    e.preventDefault(); //has made no difference so far
+    //e.preventDefault(); //has made no difference so far
     isDrawing = true;
   });
   pix.forEach(pixel => pixel.addEventListener('mousemove', draw)); // draws when mousedown
   pix.forEach(pixel => pixel.addEventListener('touchmove', draw, (e) => e.preventDefault())); //mobile
   window.addEventListener('mouseup', () => isDrawing = false);
   window.addEventListener('touchend', (e) => {
-    e.preventDefault(); // has made no difference so far
+    //e.preventDefault(); // has made no difference so far
     isDrawing = false
   });
 }
