@@ -161,6 +161,7 @@ label {
 }
 
 #grid-container {
+  flex-shrink: 0;
   margin: 0 auto;
   border: 10px solid #000;
   border-radius: 10px;
@@ -182,7 +183,7 @@ label {
   box-sizing: border-box;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 800px) {
   .container {
     width: 92%;
   }
@@ -194,6 +195,17 @@ label {
     width: 80%;
     margin: 0 auto;
   }
+
+  .slider {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sliders input {
+    width: 90px;
+    margin-right: 30px;
+  }
+
 
   .buttons > * {
     width: 70px;
