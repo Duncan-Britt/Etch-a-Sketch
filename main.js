@@ -144,7 +144,7 @@ function togFunc(e) {
       this.classList.remove('pressed');
     }
   }
-  if (this.name === 'eraser') { // tricky business
+  if (this.name === 'eraser') {
     eraser = !eraser;
     if (eraser) {
       wasGradient = gradient;
@@ -191,11 +191,11 @@ function readyPixels() {
 
 
   window.addEventListener('mousedown', () => isDrawing = true);
+  window.addEventListener('touchstart', () => isDrawing = true);
   pix.forEach(pixel => pixel.addEventListener('mousemove', draw)); // draws when mousedown
-  //pix.forEach(pixel => pixel.addEventListener('mouseover', draw));
 
-  //pix.forEach(pixel => pixel.addEventListener('mouseup', () => isDrawing = false));
   window.addEventListener('mouseup', () => isDrawing = false);
+  window.addEventListener('touchend', () => isDrawing = false);
 }
 
 const clear = document.querySelector('#clear');

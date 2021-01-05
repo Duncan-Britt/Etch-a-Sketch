@@ -11,6 +11,7 @@ body {
   background-image: url('https://wallpapercave.com/wp/MR5PkN8.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 label {
