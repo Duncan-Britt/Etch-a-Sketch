@@ -207,15 +207,22 @@ function readyPixels() {
 
 
   window.addEventListener('mousedown', () => isDrawing = true);
-  window.addEventListener('touchstart', (e) => {
-    isDrawing = true;
-  });
+  window.addEventListener('touchstart', () => isDrawing = true);
   pix.forEach(pixel => pixel.addEventListener('mousemove', draw)); // draws when mousedown
-  pix.forEach(pixel => pixel.addEventListener('touchmove', draw, (e) => e.preventDefault())); //mobile
+  pix.forEach(pixel => pixel.addEventListener('touchmove', draw, addListen, (e) => e.preventDefault())); //mobile
   window.addEventListener('mouseup', () => isDrawing = false);
-  window.addEventListener('touchend', (e) => {
-    isDrawing = false
-  });
+  window.addEventListener('touchend', () => isDrawing = false);
 }
 const clear = document.querySelector('#clear');
 clear.addEventListener('click', readyPixels);
+
+
+// figure out how to get mobile drawing to work
+// investigate why controls work on mobile chrome but not kiwi browser, something to do with preventing default behavior
+
+function addListen(e) {
+  console.log(e);
+  console.log(e.target);
+  console.log(this);
+  alert(e.target);
+}
