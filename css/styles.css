@@ -170,6 +170,7 @@ label {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  touch-action: none;
 }
 
 .pixel {
@@ -179,4 +180,33 @@ label {
   padding: 0 0;
   margin: 0 0;
   box-sizing: border-box;
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    width: 92%;
+  }
+  .etch {
+    flex-direction: column;
+  }
+  .controls {
+    order: 1;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .buttons > * {
+    width: 70px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+  }
+
+  .pixl {
+    margin-top: 0;
+  }
+
+  #grid-container {
+    width: 320px;
+    height: 320px;
+  }
 }
