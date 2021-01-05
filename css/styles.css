@@ -170,7 +170,7 @@ label {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  touch-action: none;
+  touch-action: none; /* for mobile/touch screens */
 }
 
 .pixel {

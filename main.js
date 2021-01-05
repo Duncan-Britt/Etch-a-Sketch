@@ -192,14 +192,16 @@ function readyPixels() {
 
   window.addEventListener('mousedown', () => isDrawing = true);
   window.addEventListener('touchstart', (e) => {
-  //  e.preventDefault();
+    e.preventDefault(); // new, for mobile
+    e.stopPropagation(); //
     isDrawing = true;
-  });
+  }, { passive: false, capture : true });
   pix.forEach(pixel => pixel.addEventListener('mousemove', draw)); // draws when mousedown
-  pix.forEach(pixel => pixel.addEventListener('touchmove', draw));
+  pix.forEach(pixel => pixel.addEventListener('touchmove', draw)); //mobile
   window.addEventListener('mouseup', () => isDrawing = false);
   window.addEventListener('touchend', (e) => {
-    //e.preventDefault();
+    e.preventDefault();  //
+    e.stopPropagation(); //new, for mobile
     isDrawing = false;
   });
 }
