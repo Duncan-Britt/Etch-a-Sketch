@@ -207,26 +207,11 @@ function readyPixels() {
 
 
   window.addEventListener('mousedown', () => isDrawing = true);
-  window.addEventListener('touchstart', () => {
-  //  e.preventDefault(); // new, for mobile
-  //  e.stopPropagation(); //
-    isDrawing = true;
-  });
+  window.addEventListener('touchstart', () => isDrawing = true);
   pix.forEach(pixel => pixel.addEventListener('mousemove', draw)); // draws when mousedown
   pix.forEach(pixel => pixel.addEventListener('touchmove', draw)); //mobile
   window.addEventListener('mouseup', () => isDrawing = false);
-  window.addEventListener('touchend', () => {
-    //e.preventDefault();  //
-  //  e.stopPropagation(); //new, for mobile
-    isDrawing = false;
-  });
+  window.addEventListener('touchend', () => isDrawing = false);
 }
 const clear = document.querySelector('#clear');
 clear.addEventListener('click', readyPixels);
-
-
-// mobile shit
-
-function detectMob() {
-   return ( ( window.innerWidth <= 800 ) && ( window.innerHeight <= 600 ) );
- }
