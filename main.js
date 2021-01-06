@@ -187,26 +187,30 @@ function readyPixels() {
     if (e.pointerType === 'touch') { ///mobile section
       let x = e.clientX;
       let y = e.clientY;
-      targ = document.elementFromPoint(x, y);
-      //
-      if (!eraser) {
-        targ.style.backgroundColor=`hsl(${hue}, ${sat}%, ${brightness}%)`;
-        displayColor.style.backgroundColor = `hsl(${hue}, ${sat}%, ${brightness}%)`;
-        //e.target.globalCompositeOperation = 'lighter'; figure out how to do some things
-        if (rainbow) {
-          hue++;
-        }
-        if (gradient) { // maybe come back later
-          if (brightness >= 50){
-            brightness--;
-          } else {
-            brightness = 90;
+      let targ = document.elementFromPoint(x, y);
+      let buul = targ.classList.contains('pixel');
+      if (buul) {
+        //
+        if (!eraser) {
+          targ.style.backgroundColor=`hsl(${hue}, ${sat}%, ${brightness}%)`;
+          displayColor.style.backgroundColor = `hsl(${hue}, ${sat}%, ${brightness}%)`;
+          //e.target.globalCompositeOperation = 'lighter'; figure out how to do some things
+          if (rainbow) {
+            hue++;
           }
+          if (gradient) { // maybe come back later
+            if (brightness >= 50){
+              brightness--;
+            } else {
+              brightness = 90;
+            }
+          }
+        } else {
+          targ.style.backgroundColor = '#fff';
         }
-      } else {
-        targ.style.backgroundColor = '#fff';
+        // end mobile section
       }
-      // end mobile section
+
     }
 
     if (!eraser) {
