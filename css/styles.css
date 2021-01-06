@@ -217,6 +217,16 @@ label {
     margin-top: 0;
   }
 
+  #clear:hover {
+    -webkit-transform: scale(1.05);
+    background-image: linear-gradient(to top right, #2b3559, #abf1ff);
+  }
+
+  #clear:active {
+    -webkit-transform: scale(1);
+    background-image: linear-gradient(to top right, #9e0000, #ff4a4a);
+  }
+
   #grid-container {
     width: 320px;
     height: 320px;
