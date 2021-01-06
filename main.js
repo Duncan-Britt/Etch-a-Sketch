@@ -183,6 +183,32 @@ function readyPixels() {
 
   const draw = function(e) {
     if(!isDrawing) return; // won't draw
+
+    if (e.pointerType === 'touch') { ///mobile section
+      let x = e.clientX;
+      let y = e.clientY;
+      targ = document.elementFromPoint(x, y);
+      //
+      if (!eraser) {
+        targ.style.backgroundColor=`hsl(${hue}, ${sat}%, ${brightness}%)`;
+        displayColor.style.backgroundColor = `hsl(${hue}, ${sat}%, ${brightness}%)`;
+        //e.target.globalCompositeOperation = 'lighter'; figure out how to do some things
+        if (rainbow) {
+          hue++;
+        }
+        if (gradient) { // maybe come back later
+          if (brightness >= 50){
+            brightness--;
+          } else {
+            brightness = 90;
+          }
+        }
+      } else {
+        targ.style.backgroundColor = '#fff';
+      }
+      // end mobile section
+    }
+
     if (!eraser) {
       e.target.style.backgroundColor=`hsl(${hue}, ${sat}%, ${brightness}%)`;
       displayColor.style.backgroundColor = `hsl(${hue}, ${sat}%, ${brightness}%)`;
@@ -207,11 +233,11 @@ function readyPixels() {
 
 
   window.addEventListener('mousedown', () => isDrawing = true);
-  window.addEventListener('touchstart', () => isDrawing = true);
+  window.addEventListener('pointerdown', () => isDrawing = true);
   pix.forEach(pixel => pixel.addEventListener('mousemove', draw)); // draws when mousedown
-  pix.forEach(pixel => pixel.addEventListener('touchmove', draw, addListen, (e) => e.preventDefault())); //mobile
+  pix.forEach(pixel => pixel.addEventListener('pointermove', draw, (e) => e.preventDefault())); //mobile
   window.addEventListener('mouseup', () => isDrawing = false);
-  window.addEventListener('touchend', () => isDrawing = false);
+  window.addEventListener('pointerup', () => isDrawing = false);
 }
 const clear = document.querySelector('#clear');
 clear.addEventListener('click', readyPixels);
@@ -219,10 +245,3 @@ clear.addEventListener('click', readyPixels);
 
 // figure out how to get mobile drawing to work
 // investigate why controls work on mobile chrome but not kiwi browser, something to do with preventing default behavior
-
-function addListen(e) {
-  console.log(e);
-  console.log(e.target);
-  console.log(this);
-  alert(e.target);
-}
